@@ -15,14 +15,14 @@ load_css(css_path)
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
 # Hugging Face Interface API Setup
-API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
+API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct"
 HF_TOKEN = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
 
 headers = {
     "Authorization": f"Bearer {HF_TOKEN}"
 } # Authenticates request to Hugging Face API
 
-def call_mistral_api(prompt):
+def call_falcon_api(prompt):
     payload = {
         "inputs": prompt,
         "parameters": {
@@ -54,7 +54,7 @@ def generate_weather_description(data):
             f"with {description} weather in {city}."
         )
 
-        response = call_mistral_api(prompt)
+        response = call_falcon_api(prompt)
         return recommendation(response)
 
     except Exception as e:
