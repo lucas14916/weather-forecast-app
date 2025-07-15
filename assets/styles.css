@@ -1,0 +1,60 @@
+/*Button colour*/
+.st-key-blue button {
+    background-color:#1078e1;
+    color:#ffffff;
+    border: none;
+}
+
+/*Button hover colour*/
+.st-key-blue button:hover {
+    background-color:rgb(0, 83, 166);
+    color:#ffffff;
+    border: none;
+}
+
+/*Override focus states to prevent default button border*/
+.st-key-blue button:focus {
+background-color:#1078e1;
+border: none;
+}
+
+/*Apply same text colour during button focus states*/
+.st-key-blue button:focus p {
+    color:#ffffff;
+}
+
+/*Container colour*/
+div.st-emotion-cache-b376gm.eertqu02 {
+    background-color:#1078e1;
+    color:#ffffff;
+    border: 2px solid #1078e1;
+    border-radius: 16px;
+}
+
+/* Markdown with white background */
+.blue-markdown {
+    color: #1e90ff;
+    background-color: #ffffff;
+    border: 5px solid #ffffff;
+    border-radius: 12px;
+}
+
+/* Markdown with blue background */
+.white-markdown {
+    color: #ffffff;
+    background-color: #1078e1;
+    border: 6px solid #1078e1;
+    border-radius: 15px;
+}
+
+/* 50px text */
+.large-text {
+    font-size: 50px;
+    line-height: 1;
+}
+
+/* 75px text */
+.big-text {
+    font-size: 75px;
+    line-height: 1;
+}
