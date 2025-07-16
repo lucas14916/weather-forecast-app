@@ -43,12 +43,27 @@ def call_qwen2_api(prompt):
 
 # Display recommendations inside styled container
 def recommendation(response):
-    with st.container(border=True):
+    paragraphs = response.split('\n\n')
+    formatted_paragraphs = ''.join(
+        f'<p style="margin-top: 10px; color: #ffffff;">{p}</p>' for p in paragraphs
+    )
+    with st.container():
         st.markdown(
-            '<span class="blue-markdown">&thinsp; <strong>Outfit and Activity Recommendations</strong> &thinsp;</span>',
-            unsafe_allow_html=True,
+            f"""
+            <div style="
+                background-color: #1e90ff;
+                padding: 16px;
+                border-radius: 16px;
+                border: 2px solid #1e90ff;
+            ">
+                <span class="blue-markdown">&thinsp; <strong>Outfit and Activity Recommendations</strong> &thinsp;</span>
+                {formatted_paragraphs}
+            </div>
+            """,
+            unsafe_allow_html=True
         )
-        st.write(response)
+
+
 
 # Generate weather-based outfit/activity prompt
 def generate_weather_description(data):
