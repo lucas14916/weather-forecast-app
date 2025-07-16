@@ -133,21 +133,22 @@ def main ():
             </style>
             ''', unsafe_allow_html=True)
 
-            # Create two columns with [3, 2] ratio
-            col_left, col_right = st.columns([3, 2])
+            col1, col2, col3 = st.columns([3, 2, 3])
 
-            # Left container (60%)
-            with col_left:
-                st.markdown('<div style="--col-width: 0.6;">', unsafe_allow_html=True)
+            with col1:
+                st.markdown('<div style="--col-width: 0.375;">', unsafe_allow_html=True)
                 city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
                 st.markdown('</div>', unsafe_allow_html=True)
 
-            # Right container (40%)
-            with col_right:
-                st.markdown('<div style="--col-width: 0.4;">', unsafe_allow_html=True)
+            with col2:
+                st.markdown('<div style="--col-width: 0.25;">', unsafe_allow_html=True)
                 submit = st.button("Search Weather", key="blue")
                 st.markdown('</div>', unsafe_allow_html=True)
-                
+
+            with col3:
+                st.markdown('<div style="--col-width: 0.375;"></div>', unsafe_allow_html=True)
+                st.write("")
+
             # Loading animation
             if submit or city:
                 st.spinner('Fetching weather data...')
