@@ -35,8 +35,8 @@ border: none;
 .white-markdown {
     color: #ffffff;
     background-color: #1078e1;
-    border: 6px solid #1078e1;
-    border-radius: 15px;
+    border: 10px solid #1078e1;
+    border-radius: 20px;
 }
 
 /* 75px text */
@@ -68,5 +68,5 @@ border: none;
     font-style: normal;
     letter-spacing: -0.32px;
     margin-bottom: 30px;
-    color: rgb(107, 114, 128);
+    color: #6b7280;
 }
