@@ -47,14 +47,34 @@ div.st-emotion-cache-b376gm.eertqu02 {
     border-radius: 15px;
 }
 
-/* 50px text */
-.large-text {
-    font-size: 50px;
-    line-height: 1;
-}
-
 /* 75px text */
 .big-text {
     font-size: 75px;
-    line-height: 1;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52.8px;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+/* Header text */
+.header-text {
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52.8px;
+    letter-spacing: -2.4px;
+    text-align: center;
+    margin-bottom: 5px;
+    width: 100%;
+    color: #000000;
+}
+
+/* Normal text */
+.normal-text {
+    font-size: 16px;
+    font-style: normal;
+    line-height: 52.8px;
+    margin-bottom: 20px;
+    color: rgb(107, 114, 128);
 }
