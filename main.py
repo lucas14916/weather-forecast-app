@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import pathlib
+import os
 
 # Function to load CSS from the 'assets' folder
 def load_css(file_path):
@@ -18,11 +19,11 @@ logo = "https://i.imgur.com/tyvV4FZ.png"
 st.logo(logo, size = "large")
 
 # Hugging Face Interface API Setup
-API_URL = "https://api-inference.huggingface.co/models/Qwen/Qwen2-7B-Instruct"
-HF_TOKEN = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
+API_URL = "https://router.huggingface.co/featherless-ai/v1/chat/completions"
+os.environ['HF_TOKEN'] = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
 
 headers = {
-    "Authorization": f"Bearer {HF_TOKEN}" # Authenticates request to Hugging Face API
+    "Authorization": f"Bearer {os.environ['HF_TOKEN']}" # Authenticates request to Hugging Face API
 } 
 
 def call_qwen2_api(prompt):
