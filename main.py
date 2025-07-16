@@ -14,12 +14,39 @@ load_css(css_path)
 # Page configuration
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
-st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
-
 st.markdown("""
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #3498DB;">
+<style>
+/* Force navbar to span entire window */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #3498DB;
+    padding: 1rem 2rem;
+    z-index: 1000;
+}
+.navbar-brand {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+html {
+    scroll-padding-top: 70px;
+}
+body {
+    margin: 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Add the navbar HTML
+st.markdown("""
+<div class="navbar">
   <a class="navbar-brand" target="_blank">Lark Weather Forecast App</a>
-</nav>
+</div>
 """, unsafe_allow_html=True)
 
 # Hugging Face Interface API Setup
