@@ -2,6 +2,17 @@ import streamlit as st
 import requests
 import pathlib
 
+# Page configuration
+st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
+
+st.markdown('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">', unsafe_allow_html=True)
+
+st.markdown("""
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #3498DB;">
+  <a class="navbar-brand" target="_blank">Lark Weather Forecast App</a>
+</nav>
+""", unsafe_allow_html=True)
+
 # Function to load CSS from the 'assets' folder
 def load_css(file_path):
     with open(file_path) as f:
@@ -11,28 +22,26 @@ def load_css(file_path):
 css_path = pathlib.Path("assets/styles.css")
 load_css(css_path)
 
-# Page configuration
-st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
-
 # Hugging Face Interface API Setup
-API_URL = "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3"
+API_URL = "https://api.together.xyz/v1/chat/completions"
 HF_TOKEN = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
 
 headers = {
     "Authorization": f"Bearer {HF_TOKEN}"
 } # Authenticates request to Hugging Face API
 
-def call_mistral_api(prompt):
+def call_together_api(prompt):
     payload = {
-        "inputs": prompt,
-        "parameters": {
-            "max_new_tokens": 200,
-            "temperature": 0
-        }
+        "model": "deepseek-ai/DeepSeek-R1",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
+        "max_tokens": 200,
+        "temperature": 0
     }
     response = requests.post(API_URL, headers=headers, json=payload)
     response.raise_for_status()
-    return response.json()[0]["generated_text"]
+    return response.json()["choices"][0]["message"]["content"]
 
 # Recommendations for generate_weather_description(data) below
 def recommendation(response):
@@ -50,19 +59,19 @@ def generate_weather_description(data):
         city = data['name']
 
         prompt = (
-            f"Suggest an outfit and activity if the temperature is {temperature:.0f}°C "
-            f"with {description} weather in {city}."
+            f"Suggest an outfit and an activity for someone in {city} where the weather is "
+            f"{description} and the temperature is {temperature:.0f}°C."
         )
 
-        response = call_mistral_api(prompt)
+        response = call_together_api(prompt)
         return recommendation(response)
 
     except Exception as e:
         st.error(f"Error: {e}")
 
 # Text
-st.title("Lark Weather Forecast App")
-st.text("Get real-time weather updates and receive suitable outfit and activity recommendations.")
+st.markdown("<div class='header-text'>Lark Weather Forecast App</div>", unsafe_allow_html=True)
+st.markdown("<div class='normal-text'>Get real-time weather updates and receive suitable outfit and activity recommendations.</div>", unsafe_allow_html=True)
 
 def get_weather_data(city, weather_api_key):
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
@@ -105,13 +114,13 @@ def main ():
             with a:
                 city = weather_data['name']
                 st.markdown(
-                    f'<span class="large-text"><strong>{city}</strong></span>',
+                    f'<span class="header-text"><strong>{city}</strong></span>',
                     unsafe_allow_html=True,
                 )
 
                 description = weather_data['weather'][0]['description']
                 st.markdown(
-                    f'<span class="white-markdown">&ensp; <strong>{description}</strong> &ensp;</span>',
+                    f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
                     unsafe_allow_html=True,
                 )
             
