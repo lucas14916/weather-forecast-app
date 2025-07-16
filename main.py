@@ -14,24 +14,27 @@ load_css(css_path)
 # Page configuration
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
-logo = "https://i.imgur.com/O4dXQrf.png"
+logo = "https://i.imgur.com/tyvV4FZ.png"
 st.logo(logo, size = "large")
 
 # Hugging Face Interface API Setup
-API_URL = "https://api.together.xyz/v1/chat/completions"
+API_URL = "https://router.huggingface.co/featherless-ai/v1/chat/completions"
 HF_TOKEN = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
 
 headers = {
-    "Authorization": f"Bearer {HF_TOKEN}"
-} # Authenticates request to Hugging Face API
+    "Authorization": f"Bearer {HF_TOKEN}" # Authenticates request to Hugging Face API
+} 
 
-def call_together_api(prompt):
+def call_qwen2_api(prompt):
     payload = {
-        "model": "deepseek-ai/DeepSeek-R1",
         "messages": [
-            {"role": "user", "content": prompt}
+            {
+                "role": "user",
+                "content": prompt
+            }
         ],
-        "max_tokens": 200,
+        "model": "Qwen/Qwen2-7B-Instruct",
+        "max_new_tokens": 10,
         "temperature": 0
     }
     response = requests.post(API_URL, headers=headers, json=payload)
@@ -54,11 +57,11 @@ def generate_weather_description(data):
         city = data['name']
 
         prompt = (
-            f"Suggest an outfit and an activity for someone in {city} where the weather is "
-            f"{description} and the temperature is {temperature:.0f}°C."
+            f"Use third person. Human asks: Suggest an outfit and an activity for someone in {city} where the weather is "
+            f"{description} and the temperature is {temperature:.0f}°C. AI responds: For {city} with {description} and a temperature of {temperature:.0f}°C, the following is suggested."
         )
 
-        response = call_together_api(prompt)
+        response = call_qwen2_api(prompt)
         return recommendation(response)
 
     except Exception as e:
