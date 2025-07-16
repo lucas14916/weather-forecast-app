@@ -3,6 +3,7 @@ import requests
 import pathlib
 import os
 from huggingface_hub import InferenceClient
+from streamlit_javascript import st_javascript
 
 # Function to load CSS from the 'assets' folder
 def load_css(file_path):
@@ -111,98 +112,186 @@ def get_minmaxtemp_data(city, weather_api_key):
 # Main function
 def main ():
     weather_api_key = "a0763ad3df6b1ba6a91207cc6788d66c"
+    result = st_javascript("""await navigator.userAgent;""")
 
-    # Alignment of search bar and button
-    st.write('''
-    <style>
-    [data-testid="column"] {
-        flex: 0 0 auto !important;
-        width: calc(100% * var(--col-width)) !important;
-    }
-    [data-testid="stHorizontalBlock"] {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        gap: 1rem;
-    }
-    body {
-        overflow-x: auto !important;
-    }
-    </style>
-    ''', unsafe_allow_html=True)
+    if result:
+        if "Mobi" in result:
+            st.write('''
+            <style>
+            [data-testid="column"] {
+                flex: 0 0 auto !important;
+                width: calc(100% * var(--col-width)) !important;
+            }
+            [data-testid="stHorizontalBlock"] {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                gap: 1rem;
+            }
+            body {
+                overflow-x: auto !important;
+            }
+            </style>
+            ''', unsafe_allow_html=True)
 
-    # Create columns
-    col0, col1, col2, col3 = st.columns([2, 3, 2, 2])
+            # Create two columns with [3, 2] ratio
+            col_left, col_right = st.columns([3, 2])
 
-    # Apply column content with custom widths via divs
-    with col0:
-        st.markdown('<div style="--col-width: 0.2;"></div>', unsafe_allow_html=True)
-        st.write("")
+            # Left container (60%)
+            with col_left:
+                st.markdown('<div style="--col-width: 0.6;">', unsafe_allow_html=True)
+                city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
+                st.markdown('</div>', unsafe_allow_html=True)
 
-    with col1:
-        st.markdown('<div style="--col-width: 0.3;">', unsafe_allow_html=True)
-        city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    with col2:
-        st.markdown('<div style="--col-width: 0.2;">', unsafe_allow_html=True)
-        submit = st.button("Search Weather", key="blue")
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    with col3:
-        st.markdown('<div style="--col-width: 0.2;"></div>', unsafe_allow_html=True)
-        st.write("")
-    
-    # Loading animation
-    if submit or city:
-        st.spinner('Fetching weather data...')
-        weather_data = get_weather_data(city, weather_api_key)
-
-        # Check if city is found and display weather data
-        if weather_data.get("cod") != 404:
-
-            icon_id = weather_data['weather'][0]['icon']
-            icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
-    
-            a, b, c = st.columns([3,2,2], vertical_alignment="center")
-
-            with a:
-                city = weather_data['name']
-                st.markdown(
-                    f'<span class="header-text"><strong>{city}</strong></span>',
-                    unsafe_allow_html=True,
-                )
-
-                description = weather_data['weather'][0]['description']
-                st.markdown(
-                    f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
-                    unsafe_allow_html=True,
-                )
-            
-            with st.container(border = True):
-                with b:
-                    st.image(icon_url, width = 200)
-            
-                with c:
-                    st.markdown(
-                        f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
-                    unsafe_allow_html=True,
-                )      
-
-            d, e = st.columns(2)
-            f, g = st.columns(2)
-
-            d.metric("Humidity", f"{weather_data['main']['humidity']:.0f}%", border=True)
-            e.metric("Wind", f"{weather_data['wind']['speed']} m/s", border=True)
-
-            f.metric("Minimum daily temperature", f"{weather_data['main']['temp_min'] - 273.15:.0f} °C", border=True)
-            g.metric("Maximum daily temperature", f"{weather_data['main']['temp_max'] - 273.15:.0f} °C", border=True)
+            # Right container (40%)
+            with col_right:
+                st.markdown('<div style="--col-width: 0.4;">', unsafe_allow_html=True)
+                submit = st.button("Search Weather", key="blue")
+                st.markdown('</div>', unsafe_allow_html=True)
                 
-            # Generate and display recommendation for weather
-            weather_description = generate_weather_description(weather_data)
+            # Loading animation
+            if submit or city:
+                st.spinner('Fetching weather data...')
+                weather_data = get_weather_data(city, weather_api_key)
+
+                # Check if city is found and display weather data
+                if weather_data.get("cod") != 404:
+
+                    icon_id = weather_data['weather'][0]['icon']
+                    icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
+            
+                    a, b, c = st.columns([3,2,2], vertical_alignment="center")
+
+                    with a:
+                        city = weather_data['name']
+                        st.markdown(
+                            f'<span class="header-text"><strong>{city}</strong></span>',
+                            unsafe_allow_html=True,
+                        )
+
+                        description = weather_data['weather'][0]['description']
+                        st.markdown(
+                            f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
+                            unsafe_allow_html=True,
+                        )
+                    
+                    with st.container(border = True):
+                        with b:
+                            st.image(icon_url, width = 200)
+                    
+                        with c:
+                            st.markdown(
+                                f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
+                            unsafe_allow_html=True,
+                        )      
+
+                    d, e = st.columns(2)
+                    f, g = st.columns(2)
+
+                    d.metric("Humidity", f"{weather_data['main']['humidity']:.0f}%", border=True)
+                    e.metric("Wind", f"{weather_data['wind']['speed']} m/s", border=True)
+
+                    f.metric("Minimum daily temperature", f"{weather_data['main']['temp_min'] - 273.15:.0f} °C", border=True)
+                    g.metric("Maximum daily temperature", f"{weather_data['main']['temp_max'] - 273.15:.0f} °C", border=True)
+                        
+                    # Generate and display recommendation for weather
+                    weather_description = generate_weather_description(weather_data)
+
+                else:
+                    # Display an error message if the city is not found
+                    st.error("City not found!")
 
         else:
-            # Display an error message if the city is not found
-            st.error("City not found!")
+            # Alignment of search bar and button
+            st.write('''
+            <style>
+            [data-testid="column"] {
+                flex: 0 0 auto !important;
+                width: calc(100% * var(--col-width)) !important;
+            }
+            [data-testid="stHorizontalBlock"] {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                gap: 1rem;
+            }
+            body {
+                overflow-x: auto !important;
+            }
+            </style>
+            ''', unsafe_allow_html=True)
+
+            # Create columns
+            col0, col1, col2, col3 = st.columns([2, 3, 2, 2])
+
+            # Apply column content with custom widths via divs
+            with col0:
+                st.markdown('<div style="--col-width: 0.2;"></div>', unsafe_allow_html=True)
+                st.write("")
+
+            with col1:
+                st.markdown('<div style="--col-width: 0.3;">', unsafe_allow_html=True)
+                city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
+                st.markdown('</div>', unsafe_allow_html=True)
+
+            with col2:
+                st.markdown('<div style="--col-width: 0.2;">', unsafe_allow_html=True)
+                submit = st.button("Search Weather", key="blue")
+                st.markdown('</div>', unsafe_allow_html=True)
+
+            with col3:
+                st.markdown('<div style="--col-width: 0.2;"></div>', unsafe_allow_html=True)
+                st.write("")
+    
+            # Loading animation
+            if submit or city:
+                st.spinner('Fetching weather data...')
+                weather_data = get_weather_data(city, weather_api_key)
+
+                # Check if city is found and display weather data
+                if weather_data.get("cod") != 404:
+
+                    icon_id = weather_data['weather'][0]['icon']
+                    icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
+            
+                    a, b, c = st.columns([3,2,2], vertical_alignment="center")
+
+                    with a:
+                        city = weather_data['name']
+                        st.markdown(
+                            f'<span class="header-text"><strong>{city}</strong></span>',
+                            unsafe_allow_html=True,
+                        )
+
+                        description = weather_data['weather'][0]['description']
+                        st.markdown(
+                            f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
+                            unsafe_allow_html=True,
+                        )
+                    
+                    with st.container(border = True):
+                        with b:
+                            st.image(icon_url, width = 200)
+                    
+                        with c:
+                            st.markdown(
+                                f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
+                            unsafe_allow_html=True,
+                        )      
+
+                    d, e = st.columns(2)
+                    f, g = st.columns(2)
+
+                    d.metric("Humidity", f"{weather_data['main']['humidity']:.0f}%", border=True)
+                    e.metric("Wind", f"{weather_data['wind']['speed']} m/s", border=True)
+
+                    f.metric("Minimum daily temperature", f"{weather_data['main']['temp_min'] - 273.15:.0f} °C", border=True)
+                    g.metric("Maximum daily temperature", f"{weather_data['main']['temp_max'] - 273.15:.0f} °C", border=True)
+                        
+                    # Generate and display recommendation for weather
+                    weather_description = generate_weather_description(weather_data)
+
+                else:
+                    # Display an error message if the city is not found
+                    st.error("City not found!")
 
 
 if __name__ == "__main__":
