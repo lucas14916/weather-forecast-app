@@ -14,6 +14,9 @@ load_css(css_path)
 # Page configuration
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
+logo = "https://i.imgur.com/O4dXQrf.png"
+st.logo(logo, size = "large")
+
 # Hugging Face Interface API Setup
 API_URL = "https://api.together.xyz/v1/chat/completions"
 HF_TOKEN = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
