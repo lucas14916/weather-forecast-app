@@ -113,17 +113,43 @@ def main ():
     weather_api_key = "a0763ad3df6b1ba6a91207cc6788d66c"
 
     # Alignment of search bar and button
-    col0, col1, col2, col3 = st.columns([2,3,2,2])
+    st.write('''
+    <style>
+    [data-testid="column"] {
+        flex: 0 0 auto !important;
+        width: calc(100% * var(--col-width)) !important;
+    }
+    [data-testid="stHorizontalBlock"] {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 1rem;
+    }
+    body {
+        overflow-x: auto !important;
+    }
+    </style>
+    ''', unsafe_allow_html=True)
 
+    # Create columns
+    col0, col1, col2, col3 = st.columns([2, 3, 2, 2])
+
+    # Apply column content with custom widths via divs
     with col0:
+        st.markdown('<div style="--col-width: 0.2;"></div>', unsafe_allow_html=True)
         st.write("")
+
     with col1:
-        city = st.text_input(label = "", label_visibility = "collapsed", placeholder="Enter a city")
+        st.markdown('<div style="--col-width: 0.3;">', unsafe_allow_html=True)
+        city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col2:
+        st.markdown('<div style="--col-width: 0.2;">', unsafe_allow_html=True)
         submit = st.button("Search Weather", key="blue")
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col3:
+        st.markdown('<div style="--col-width: 0.2;"></div>', unsafe_allow_html=True)
         st.write("")
     
     # Loading animation
