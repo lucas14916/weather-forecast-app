@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import pathlib
 import os
+from huggingface_hub import InferenceClient
 
 # Function to load CSS from the 'assets' folder
 def load_css(file_path):
@@ -18,39 +19,38 @@ st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", l
 logo = "https://i.imgur.com/tyvV4FZ.png"
 st.logo(logo, size = "large")
 
-# Hugging Face Interface API Setup
-API_URL = "https://router.huggingface.co/featherless-ai/v1/chat/completions"
-os.environ['HF_TOKEN'] = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
+os.environ["HF_TOKEN"] = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
 
-headers = {
-    "Authorization": f"Bearer {os.environ['HF_TOKEN']}" # Authenticates request to Hugging Face API
-} 
+client = InferenceClient(
+    provider="featherless-ai",
+    api_key=os.environ["HF_TOKEN"],
+)
 
 def call_qwen2_api(prompt):
-    payload = {
-        "messages": [
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        "model": "Qwen/Qwen2-7B-Instruct",
-        "max_new_tokens": 10,
-        "temperature": 0
-    }
-    response = requests.post(API_URL, headers=headers, json=payload)
-    response.raise_for_status()
-    return response.json()["choices"][0]["message"]["content"]
+    try:
+        completion = client.chat.completions.create(
+            model="Qwen/Qwen2-7B-Instruct",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=200,
+            temperature=0
+        )
+        return completion.choices[0].message.content
+    except Exception as e:
+        st.error(f"API Error: {e}")
+        return "Sorry, something went wrong."
 
-# Recommendations for generate_weather_description(data) below
+# Display recommendations inside styled container
 def recommendation(response):
-    with st.container(border = True):
+    with st.container(border=True):
         st.markdown(
             '<span class="blue-markdown">&thinsp; <strong>Outfit and Activity Recommendations</strong> &thinsp;</span>',
             unsafe_allow_html=True,
         )
         st.write(response)
 
+# Generate weather-based outfit/activity prompt
 def generate_weather_description(data):
     try:
         temperature = data['main']['temp'] - 273.15
@@ -66,7 +66,7 @@ def generate_weather_description(data):
         return recommendation(response)
 
     except Exception as e:
-        st.error(f"Error: {e}")
+        st.error(f"Error processing weather data: {e}")
 
 # Text
 st.markdown("<div class='header-text'>Lark Weather Forecast App</div>", unsafe_allow_html=True)
