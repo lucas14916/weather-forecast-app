@@ -13,6 +13,17 @@ def load_css(file_path):
 css_path = pathlib.Path("assets/styles.css")
 load_css(css_path)
 
+# Inject Google Fonts CSS
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+    html, body, [class*="css"]  {
+        font-family: 'Inter', sans-serif;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Page configuration
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
