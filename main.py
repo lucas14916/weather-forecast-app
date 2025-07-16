@@ -2,6 +2,15 @@ import streamlit as st
 import requests
 import pathlib
 
+# Function to load CSS from the 'assets' folder
+def load_css(file_path):
+    with open(file_path) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Load the external CSS
+css_path = pathlib.Path("assets/styles.css")
+load_css(css_path)
+
 # Page configuration
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
@@ -12,15 +21,6 @@ st.markdown("""
   <a class="navbar-brand" target="_blank">Lark Weather Forecast App</a>
 </nav>
 """, unsafe_allow_html=True)
-
-# Function to load CSS from the 'assets' folder
-def load_css(file_path):
-    with open(file_path) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-# Load the external CSS
-css_path = pathlib.Path("assets/styles.css")
-load_css(css_path)
 
 # Hugging Face Interface API Setup
 API_URL = "https://api.together.xyz/v1/chat/completions"
