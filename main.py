@@ -14,41 +14,6 @@ load_css(css_path)
 # Page configuration
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
-st.markdown("""
-<style>
-/* Force navbar to span entire window */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    background-color: #3498DB;
-    padding: 1rem 2rem;
-    z-index: 1000;
-}
-.navbar-brand {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
-}
-html {
-    scroll-padding-top: 70px;
-}
-body {
-    margin: 0;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Add the navbar HTML
-st.markdown("""
-<div class="navbar">
-  <a class="navbar-brand" target="_blank">Lark Weather Forecast App</a>
-</div>
-""", unsafe_allow_html=True)
-
 # Hugging Face Interface API Setup
 API_URL = "https://api.together.xyz/v1/chat/completions"
 HF_TOKEN = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
