@@ -121,10 +121,10 @@ def main ():
         city = st.text_input(label = "", label_visibility = "collapsed", placeholder="Enter a city")
 
     with col2:
-        submit = st.button("Search weather", key="blue")
+        submit = st.button("Search Weather", key="blue")
 
     # Loading animation
-    if submit:
+    if submit or city:
         st.spinner('Fetching weather data...')
         weather_data = get_weather_data(city, weather_api_key)
 
