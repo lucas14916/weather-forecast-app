@@ -113,14 +113,19 @@ def main ():
     weather_api_key = "a0763ad3df6b1ba6a91207cc6788d66c"
 
     # Alignment of search bar and button
-    col0, col1, col2, col3 = st.columns([3,3,2,3])
+    col0, col1, col2, col3 = st.columns([2,3,2,2])
 
+    with col0:
+        st.write("")
     with col1:
         city = st.text_input(label = "", label_visibility = "collapsed", placeholder="Enter a city")
 
     with col2:
         submit = st.button("Search Weather", key="blue")
 
+    with col3:
+        st.write("")
+    
     # Loading animation
     if submit or city:
         st.spinner('Fetching weather data...')
