@@ -66,7 +66,7 @@ border: none;
 .normal-text {
     font-size: 16px;
     font-style: normal;
-    line-height: 52.8px;
+    letter-spacing: -0.32px;
     margin-bottom: 20px;
     color: rgb(107, 114, 128);
 }
