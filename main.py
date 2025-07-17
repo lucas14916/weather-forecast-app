@@ -146,7 +146,7 @@ def main ():
     result = st_javascript("""await navigator.userAgent;""")
 
     if result:
-        if "Mobi" in result:
+        if "Mobi" in result: # Check if user is on mobile
             city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
 
             # Loading animation
@@ -159,31 +159,25 @@ def main ():
 
                     icon_id = weather_data['weather'][0]['icon']
                     icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
-            
-                    a, b, c = st.columns([3,2,2], vertical_alignment="center")
-
-                    with a:
-                        city = weather_data['name']
-                        st.markdown(
-                            f'<span class="header-text"><strong>{city}</strong></span>',
-                            unsafe_allow_html=True,
-                        )
-
-                        description = weather_data['weather'][0]['description']
-                        st.markdown(
-                            f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
-                            unsafe_allow_html=True,
-                        )
+        
+                    city = weather_data['name']
+                    st.markdown(
+                        f'<span class="header-text"><strong>{city}</strong></span>',
+                        unsafe_allow_html=True,
+                    )
                     
-                    with st.container(border = True):
-                        with b:
-                            st.image(icon_url, width = 200)
+                    st.image(icon_url, width = 200)
                     
-                        with c:
-                            st.markdown(
-                                f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
-                            unsafe_allow_html=True,
-                        )      
+                    st.markdown(
+                        f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
+                    unsafe_allow_html=True,
+                    )
+
+                    description = weather_data['weather'][0]['description']
+                    st.markdown(
+                        f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
+                        unsafe_allow_html=True,
+                    )                    
 
                     d, e = st.columns(2)
                     f, g = st.columns(2)
