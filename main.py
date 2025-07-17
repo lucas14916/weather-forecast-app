@@ -240,7 +240,7 @@ def main ():
 
                 else:
                     # Display an error message if the city is not found
-                    st.error("City not found!")
+                    print("City not found!") 
 
 
 if __name__ == "__main__":
