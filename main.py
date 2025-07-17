@@ -112,6 +112,10 @@ st.markdown("""
     .center-wrapper {
         text-align: center;
     }
+    .center-header-wrapper {
+        text-align: center;
+        margin-bottom: 15px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -125,7 +129,13 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='header-text'>Lark Weather Forecast App</div>", unsafe_allow_html=True)
+st.markdown("""
+    <div class='center-header-wrapper'>
+        <span class='blue-header-text'>Lark </span>
+        <span class='header-text'>Weather Forecast App</span>
+    </div>
+""", unsafe_allow_html=True)
+
 st.markdown("<div class='normal-text'>Get real-time weather updates and receive suitable outfit and activity recommendations.</div>", unsafe_allow_html=True)
 
 def get_weather_data(city, weather_api_key):
