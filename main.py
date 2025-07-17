@@ -29,7 +29,7 @@ st.markdown("""
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
 logo = "https://i.imgur.com/tyvV4FZ.png"
-st.image(logo, width=50)  # Adjust width bro
+st.logo(logo, width=90)  # Adjust width bro
 
 os.environ["HF_TOKEN"] = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
 
