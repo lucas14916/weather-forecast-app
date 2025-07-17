@@ -142,25 +142,23 @@ def main ():
             col1, col2 = st.columns([3, 2])
 
             with col1:
-                st.markdown('<div style="--col-width: 0.6;">', unsafe_allow_html=True)
-
                 st.markdown("""
-                    <div style="display: flex; justify-content: center;">
-                        <div style="max-width: 100px; width: 100%;">
-                            <input name="city" placeholder="Enter a city" 
-                                style="
-                                    width: 100%;
-                                    padding: 0.5rem;
-                                    font-size: 1rem;
-                                    border: 1px solid #ccc;
-                                    border-radius: 4px;
-                                " />
-                        </div>
-                    </div>
+                    <style>
+                    .shrink-text-input .stTextInput > div {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .shrink-text-input .stTextInput input {
+                        max-width: 300px !important;
+                        width: 100% !important;
+                    }
+                    </style>
                 """, unsafe_allow_html=True)
 
+                st.markdown('<div class="shrink-text-input" style="--col-width: 0.25;">', unsafe_allow_html=True)
+                city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
                 st.markdown('</div>', unsafe_allow_html=True)
-
 
             with col2:
                 st.markdown('<div style="--col-width: 0.4;">', unsafe_allow_html=True)
