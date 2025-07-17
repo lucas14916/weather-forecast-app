@@ -28,21 +28,22 @@ st.markdown("""
 # Page configuration
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
+# Remove Streamlit’s default padding/margins (optional)
 st.markdown("""
     <style>
-        .logo-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-        .logo-container img {
-            width: 150px;  /* Adjust size as needed */
+        .block-container {
+            padding-top: 1rem;
+            padding-bottom: 0rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
     </style>
-    <div class="logo-container">
-        <img src="https://i.imgur.com/tyvV4FZ.png" />
-    </div>
 """, unsafe_allow_html=True)
+
+# Use columns to align logo left
+col1, col2 = st.columns([1, 6])  # Adjust ratio as needed
+with col1:
+    st.image("https://i.imgur.com/tyvV4FZ.png", width=180)  # Increase width for larger size
 os.environ["HF_TOKEN"] = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
 
 client = InferenceClient(
