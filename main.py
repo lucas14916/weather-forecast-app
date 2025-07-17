@@ -113,7 +113,7 @@ def get_minmaxtemp_data(city, weather_api_key):
 def main ():
     weather_api_key = "a0763ad3df6b1ba6a91207cc6788d66c"
     result = st_javascript("""await navigator.userAgent;""")
-
+    
     if result:
         if "Mobi" in result:
             st.write('''
@@ -141,10 +141,25 @@ def main ():
             ''', unsafe_allow_html=True)
             col1, col2 = st.columns([3, 2])
 
+            st.markdown("""
+                <style>
+                .stTextInput input {
+                    max-width: 100px;
+                    width: 100%;
+                }
+
+                /* Optional: center the input horizontally */
+                .stTextInput {
+                    display: flex;
+                    justify-content: center;
+                }
+                </style>
+            """, unsafe_allow_html=True)
+
             with col1:
-                st.markdown('<div style="--col-width: 0.6;"><div style="max-width: 50px;">', unsafe_allow_html=True)
+                st.markdown('<div style="--col-width: 0.6;">', unsafe_allow_html=True)
                 city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
-                st.markdown('</div></div>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
 
             with col2:
                 st.markdown('<div style="--col-width: 0.4;">', unsafe_allow_html=True)
