@@ -122,18 +122,24 @@ def main ():
                 flex: 0 0 auto !important;
                 width: calc(100% * var(--col-width)) !important;
             }
+
+            /* Prevent columns from wrapping */
             [data-testid="stHorizontalBlock"] {
                 display: flex !important;
                 flex-wrap: nowrap !important;
                 gap: 1rem;
+                overflow-x: auto !important;  /* Enable horizontal scroll on overflow */
             }
+
+            /* Let the whole app scroll horizontally when needed */
             body {
                 overflow-x: auto !important;
+                margin: 0;
+                padding: 0;
             }
             </style>
             ''', unsafe_allow_html=True)
-
-            col1, col2, col3 = st.columns([3, 2, 3])
+            col1, col2 = st.columns([3, 2])
 
             with col1:
                 st.markdown('<div style="--col-width: 0.375;">', unsafe_allow_html=True)
@@ -144,10 +150,6 @@ def main ():
                 st.markdown('<div style="--col-width: 0.25;">', unsafe_allow_html=True)
                 submit = st.button("Search Weather", key="blue")
                 st.markdown('</div>', unsafe_allow_html=True)
-
-            with col3:
-                st.markdown('<div style="--col-width: 0.375;"></div>', unsafe_allow_html=True)
-                st.write("")
 
             # Loading animation
             if submit or city:
