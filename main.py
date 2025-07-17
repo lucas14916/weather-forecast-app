@@ -94,10 +94,37 @@ def generate_weather_description(data):
         st.error(f"Error processing weather data: {e}")
 
 # Text
-st.markdown(
-    f'<span class="border-markdown">&ensp;LLM-based weather recommender&ensp;</span>',
-    unsafe_allow_html=True,
-)
+st.markdown("""
+    <style>
+    .border-markdown {
+        display: inline-block;
+        text-align: center;
+        font-style: normal;
+        font-size: 13px;
+        color: #000000;
+        background-color: #ffffff;
+        border: 1px solid #d0d0d0;
+        border-radius: 20px;
+        padding: 5px;
+        margin: 0 auto; 
+        margin-bottom: 20px;
+    }
+    .center-wrapper {
+        text-align: center;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <div class="center-wrapper">
+        <div class="border-markdown">
+            <span>&ensp;</span>
+            <img src = "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/cpu.svg" width = "18">
+            <span>&thinsp; API- and LLM-based recommender &ensp;</span>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
 st.markdown("<div class='header-text'>Lark Weather Forecast App</div>", unsafe_allow_html=True)
 st.markdown("<div class='normal-text'>Get real-time weather updates and receive suitable outfit and activity recommendations.</div>", unsafe_allow_html=True)
 
@@ -240,9 +267,8 @@ def main ():
 
                 else:
                     # Display an error message if the city is not found
-                    print("City not found!") 
+                    st.error("City not found!")
 
 
 if __name__ == "__main__":
     main()
-
