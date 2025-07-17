@@ -113,60 +113,13 @@ def get_minmaxtemp_data(city, weather_api_key):
 def main ():
     weather_api_key = "a0763ad3df6b1ba6a91207cc6788d66c"
     result = st_javascript("""await navigator.userAgent;""")
-    
+
     if result:
         if "Mobi" in result:
-            st.write('''
-            <style>
-            [data-testid="column"] {
-                flex: 0 0 auto !important;
-                width: calc(100% * var(--col-width)) !important;
-            }
-
-            /* Prevent columns from wrapping */
-            [data-testid="stHorizontalBlock"] {
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                gap: 1rem;
-                overflow-x: auto !important;  /* Enable horizontal scroll on overflow */
-            }
-
-            /* Let the whole app scroll horizontally when needed */
-            body {
-                overflow-x: auto !important;
-                margin: 0;
-                padding: 0;
-            }
-            </style>
-            ''', unsafe_allow_html=True)
-            col1, col2 = st.columns([3, 2])
-
-            with col1:
-                st.markdown("""
-                    <style>
-                    .shrink-text-input .stTextInput > div {
-                        display: flex;
-                        justify-content: center;
-                    }
-
-                    .shrink-text-input .stTextInput input {
-                        max-width: 300px !important;
-                        width: 100% !important;
-                    }
-                    </style>
-                """, unsafe_allow_html=True)
-
-                st.markdown('<div class="shrink-text-input" style="--col-width: 0.25;">', unsafe_allow_html=True)
-                city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
-                st.markdown('</div>', unsafe_allow_html=True)
-
-            with col2:
-                st.markdown('<div style="--col-width: 0.4;">', unsafe_allow_html=True)
-                submit = st.button("Search Weather", key="blue")
-                st.markdown('</div>', unsafe_allow_html=True)
+            city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
 
             # Loading animation
-            if submit or city:
+            if city:
                 st.spinner('Fetching weather data...')
                 weather_data = get_weather_data(city, weather_api_key)
 
