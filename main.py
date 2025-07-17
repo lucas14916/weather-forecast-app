@@ -28,9 +28,21 @@ st.markdown("""
 # Page configuration
 st.set_page_config(page_title="Lark Weather Forecast App", page_icon="☁️", layout="centered", initial_sidebar_state="collapsed")
 
-logo = "https://i.imgur.com/tyvV4FZ.png"
-st.logo(logo, size = "large")
-
+st.markdown("""
+    <style>
+        .logo-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .logo-container img {
+            width: 150px;  /* Adjust size as needed */
+        }
+    </style>
+    <div class="logo-container">
+        <img src="https://i.imgur.com/tyvV4FZ.png" />
+    </div>
+""", unsafe_allow_html=True)
 os.environ["HF_TOKEN"] = st.secrets["HF_TOKEN"] # Stored in .streamlit/secrets.toml
 
 client = InferenceClient(
