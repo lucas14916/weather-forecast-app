@@ -162,6 +162,7 @@ def main ():
         
                     city = weather_data['name']
                     description = weather_data['weather'][0]['description']
+                    temperature = weather_data['main']['temp'] - 273.15
 
                     st.markdown("""
                         <style>
@@ -175,27 +176,15 @@ def main ():
                         </style>
                     """, unsafe_allow_html=True)                    
 
-                    st.markdown('<div class="center-wrapper">', unsafe_allow_html=True)
-
-                    st.markdown(
-                        f'<span class="header-text"><strong>{city}</strong></span>',
-                        unsafe_allow_html=True,
-                    )
+                    st.markdown(f"""
+                        <div class="center-wrapper">
+                            <span class="header-text"><strong>{city}</strong></span>
+                            <img src="{icon_url}" width="100" style="margin: 10px 0;">
+                            <span class="big-text"><strong>{temperature:.0f}°C</strong></span>
+                            <span class="white-markdown">{description}</span>
+                        </div>
+                    """, unsafe_allow_html=True)
                     
-                    st.image(icon_url, width = 300)
-                    
-                    st.markdown(
-                        f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
-                    unsafe_allow_html=True,
-                    )
-
-                    st.markdown(
-                        f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
-                        unsafe_allow_html=True,
-                    )                   
-                     
-                    st.markdown('</div>', unsafe_allow_html=True)
-
                     d, e = st.columns(2)
                     f, g = st.columns(2)
 
