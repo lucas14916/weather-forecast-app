@@ -39,15 +39,6 @@ border: none;
     border-radius: 20px;
 }
 
-/* Small markdown with blue background */
-.border-markdown {
-    color: #000000;
-    text-align: center;
-    background-color: #ffffff;
-    border: 2px solid #6b7280;
-    border-radius: 16px;
-}
-
 /* 75px text */
 .big-text {
     font-size: 75px;
