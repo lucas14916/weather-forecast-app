@@ -142,7 +142,7 @@ def main ():
             col1, col2 = st.columns([3, 2])
 
             with col1:
-                st.markdown('<div style="--col-width: 0.6;"><div style="max-width: 300px;">', unsafe_allow_html=True)
+                st.markdown('<div style="--col-width: 0.6;"><div style="max-width: 50px;">', unsafe_allow_html=True)
                 city = st.text_input(label="", label_visibility="collapsed", placeholder="Enter a city")
                 st.markdown('</div></div>', unsafe_allow_html=True)
 
