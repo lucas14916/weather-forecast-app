@@ -161,23 +161,40 @@ def main ():
                     icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
         
                     city = weather_data['name']
+                    description = weather_data['weather'][0]['description']
+
+                    st.markdown("""
+                        <style>
+                        .center-wrapper {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            text-align: center;
+                            padding: 10px;
+                        }
+                        </style>
+                    """, unsafe_allow_html=True)                    
+
+                    st.markdown('<div class="center-wrapper">', unsafe_allow_html=True)
+
                     st.markdown(
                         f'<span class="header-text"><strong>{city}</strong></span>',
                         unsafe_allow_html=True,
                     )
                     
-                    st.image(icon_url, width = 200)
+                    st.image(icon_url, width = 300)
                     
                     st.markdown(
                         f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
                     unsafe_allow_html=True,
                     )
 
-                    description = weather_data['weather'][0]['description']
                     st.markdown(
                         f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
                         unsafe_allow_html=True,
-                    )                    
+                    )                   
+                     
+                    st.markdown('</div>', unsafe_allow_html=True)
 
                     d, e = st.columns(2)
                     f, g = st.columns(2)
