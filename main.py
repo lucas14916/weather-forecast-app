@@ -178,7 +178,7 @@ def main ():
 
                     st.markdown(f"""
                         <div class="center-wrapper">
-                            <span class="header-text"><strong>{city}</strong></span>
+                            <span class="city-text"><strong>{city}</strong></span>
                             <img src="{icon_url}" width="300" style="margin: 10px 0;">
                             <span class="big-text"><strong>{temperature:.0f}°C</strong></span>
                             <span class="white-markdown">&ensp;{description}&ensp;</span>
@@ -272,4 +272,3 @@ def main ():
 
 if __name__ == "__main__":
     main()
-
