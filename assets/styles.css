@@ -49,6 +49,17 @@ border: none;
     color: #000000;
 }
 
+/* 75px text for temperature display on mobile */
+.temp-text {
+    font-size: 75px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52.8px;
+    margin-top: -75px;
+    margin-bottom: 25px;
+    color: #000000;
+}
+
 /* Header text */
 .header-text {
     font-size: 48px;
