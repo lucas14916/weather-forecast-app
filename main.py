@@ -94,6 +94,10 @@ def generate_weather_description(data):
         st.error(f"Error processing weather data: {e}")
 
 # Text
+st.markdown(
+    f'<span class="white-markdown">&ensp;LLM-based weather recommender&ensp;</span>',
+    unsafe_allow_html=True,
+)
 st.markdown("<div class='header-text'>Lark Weather Forecast App</div>", unsafe_allow_html=True)
 st.markdown("<div class='normal-text'>Get real-time weather updates and receive suitable outfit and activity recommendations.</div>", unsafe_allow_html=True)
 
@@ -241,3 +245,4 @@ def main ():
 
 if __name__ == "__main__":
     main()
+
