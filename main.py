@@ -180,7 +180,7 @@ def main ():
                         <div class="center-wrapper">
                             <span class="city-text"><strong>{city}</strong></span>
                             <img src="{icon_url}" width="300" style="margin: 10px 0;">
-                            <span class="big-text"><strong>{temperature:.0f}°C</strong></span>
+                            <span class="temp-text"><strong>{temperature:.0f}°C</strong></span>
                             <span class="white-markdown">&ensp;{description}&ensp;</span>
                         </div>
                     """, unsafe_allow_html=True)
