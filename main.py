@@ -154,7 +154,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-st.markdown("<div class='normal-text'>Get real-time weather updates and receive suitable outfit and activity recommendations with tips tailored to your day.</div>", unsafe_allow_html=True)
+st.markdown("<div class='normal-text'>Get real-time weather updates and receive suitable outfit and activity recommendations.</div>", unsafe_allow_html=True)
 
 
 def get_weather_data(city, weather_api_key):
@@ -283,35 +283,31 @@ def main ():
                    icon_id = weather_data['weather'][0]['icon']
                    icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
 
-                   
-                    
-                   with st.container(border = True):
-                        
-                        a, b, c = st.columns([1,4,6], vertical_alignment="center")
+                   a, b, c = st.columns([1,4,6], vertical_alignment="center")
 
-                        with a:
-                            st.write("")
+                   with a:
+                       st.write("")
 
-                        with b:
-                            city = weather_data['name']
-                            st.markdown(
-                                f'<span class="header-text"><strong>{city}</strong></span>',
-                                unsafe_allow_html=True,
-                            )
+                   with b:
+                       city = weather_data['name']
+                       st.markdown(
+                           f'<span class="header-text"><strong>{city}</strong></span>',
+                           unsafe_allow_html=True,
+                       )
 
-                            st.markdown(
-                                    f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
-                                    unsafe_allow_html=True,
-                                    )     
+                       st.markdown(
+                               f"<span class='big-text'><strong>{weather_data['main']['temp'] - 273.15:.0f}°C</strong></span>",
+                               unsafe_allow_html=True,
+                       )     
 
-                            description = weather_data['weather'][0]['description']
-                            st.markdown(
-                                f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
-                                unsafe_allow_html=True,
-                            )
+                       description = weather_data['weather'][0]['description']
+                       st.markdown(
+                           f'<span class="white-markdown">&ensp;{description}&ensp;</span>',
+                           unsafe_allow_html=True,
+                       )
         
-                        with c:
-                            st.image(icon_url, width=400)
+                   with c:
+                       st.image(icon_url, width=400)
 
                    d, e = st.columns(2)
                    f, g = st.columns(2)
