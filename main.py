@@ -116,6 +116,7 @@ st.markdown("""
        text-align: center;
        font-style: normal;
        font-size: 13px;
+       font-family: 'Inter', sans-serif;     
        color: #000000;
        background-color: #ffffff;
        border: 1px solid #d0d0d0;
