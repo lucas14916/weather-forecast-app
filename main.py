@@ -154,7 +154,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-st.markdown("<div class='normal-text'>Get real-time weather updates and receive suitable outfit and activity recommendations.</div>", unsafe_allow_html=True)
+st.markdown("<div class='normal-text'>Get real-time weather updates and receive suitable outfit and activity recommendations with tips tailored to your day.</div>", unsafe_allow_html=True)
 
 
 def get_weather_data(city, weather_api_key):
