@@ -1,6 +1,7 @@
 /*Button colour*/
 .st-key-blue button {
    background-color:#1078e1;
+   font-family: 'Inter', sans-serif;
    color:#ffffff;
    border: none;
 }
@@ -9,6 +10,7 @@
 /*Button hover colour*/
 .st-key-blue button:hover {
    background-color:rgb(0, 83, 166);
+   font-family: 'Inter', sans-serif;
    color:#ffffff;
    border: none;
 }
@@ -17,18 +19,21 @@
 /*Override focus states to prevent default button border*/
 .st-key-blue button:focus {
 background-color:#1078e1;
+font-family: 'Inter', sans-serif;
 border: none;
 }
 
 
 /*Apply same text colour during button focus states*/
 .st-key-blue button:focus p {
+   font-family: 'Inter', sans-serif;
    color:#ffffff;
 }
 
 
 /* Markdown with white background */
 .blue-markdown {
+   font-family: 'Inter', sans-serif;
    color: #1e90ff;
    background-color: #ffffff;
    border: 5px solid #ffffff;
@@ -38,6 +43,7 @@ border: none;
 
 /* Markdown with blue background */
 .white-markdown {
+   font-family: 'Inter', sans-serif;
    color: #ffffff;
    background-color: #1078e1;
    border: 10px solid #1078e1;
@@ -50,6 +56,7 @@ border: none;
 .big-text {
    font-size: 75px;
    font-style: normal;
+   font-family: 'Inter', sans-serif;
    font-weight: 600;
    line-height: 52.8px;
    margin-bottom: 5px;
@@ -61,6 +68,7 @@ border: none;
 .temp-text {
    font-size: 75px;
    font-style: normal;
+   font-family: 'Inter', sans-serif;
    font-weight: 600;
    line-height: 52.8px;
    margin-top: -60px;
@@ -73,6 +81,7 @@ border: none;
 .header-text {
    font-size: 48px;
    font-style: normal;
+   font-family: 'Inter', sans-serif;
    font-weight: 600;
    line-height: 52.8px;
    letter-spacing: -2px;
@@ -87,6 +96,7 @@ border: none;
 .blue-header-text {
    font-size: 48px;
    font-style: normal;
+   font-family: 'Inter', sans-serif;
    font-weight: 600;
    line-height: 52.8px;
    letter-spacing: -2px;
@@ -101,6 +111,7 @@ border: none;
 .city-text {
    font-size: 48px;
    font-style: normal;
+   font-family: 'Inter', sans-serif;
    font-weight: 600;
    line-height: 52.8px;
    letter-spacing: -2px;
@@ -114,6 +125,7 @@ border: none;
 /* Normal text */
 .normal-text {
    font-size: 16px;
+   font-family: 'Inter', sans-serif;
    font-style: normal;
    letter-spacing: -0.32px;
    color: #6b7280;
