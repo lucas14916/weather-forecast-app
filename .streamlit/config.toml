@@ -7,11 +7,7 @@ url="app/static/Inter_18pt-Regular.ttf"
 style="normal"
 
 [theme]
-
-base = "light"
-
-primaryColor="#ADD8E6"
-
-textColor="#000000"
-
 font="Inter"
+base = "light"
+primaryColor="#ADD8E6"
+textColor="#000000"
