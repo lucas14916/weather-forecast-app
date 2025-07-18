@@ -187,10 +187,14 @@ def main ():
                st.spinner('Fetching weather data...')
                weather_data = get_weather_data(city, weather_api_key)
 
-
                # Check if city is found and display weather data
-               if weather_data.get("cod") != 404:
-
+               if(
+                   isinstance(weather_data, dict) and
+                   weather_data.get("cod") == 200 and
+                   "weather" in weather_data and
+                   isinstance(weather_data["weather"], list) and
+                   len(weather_data["weather"]) > 0
+               ):
 
                    icon_id = weather_data['weather'][0]['icon']
                    icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
@@ -240,7 +244,7 @@ def main ():
                else:
                    # Display an error message if the city is not found
                    st.error("City not found!")
-
+                   icon_id = None
 
        else:
            # Alignment of search bar and button
@@ -267,10 +271,14 @@ def main ():
                st.spinner('Fetching weather data...')
                weather_data = get_weather_data(city, weather_api_key)
 
-
                # Check if city is found and display weather data
-               if weather_data.get("cod") != 404:
-
+               if (
+                   isinstance(weather_data, dict) and
+                   weather_data.get("cod") == 200 and
+                   "weather" in weather_data and
+                   isinstance(weather_data["weather"], list) and
+                   len(weather_data["weather"]) > 0
+               ):
 
                    icon_id = weather_data['weather'][0]['icon']
                    icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
@@ -323,6 +331,7 @@ def main ():
                else:
                    # Display an error message if the city is not found
                    st.error("City not found!")
+                   icon_id = None
 
 
 
